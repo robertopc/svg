@@ -1,3 +1,15 @@
+const events = [
+  "dragstart", "drag", "dragend",
+  "pointerdown", "pointerup", "pointermove", "pointerenter",
+  "pointerleave", "pointerover", "pointerout", "pointercancel",
+  "click", "dblclick", "contextmenu",
+  "wheel"
+];
+
+const keyEvents = [
+  "keydown", "keyup", "keypress"
+];
+
 function id(val) {
   return document.getElementById(val);
 }
@@ -22,19 +34,19 @@ function event(obj, val, fun) {
   obj.addEventListener(val, fun);
 }
 
-function log(val) {
+function log(...val) {
   DEBUG && console.log(val);
 }
 
-function info(val) {
+function info(...val) {
   DEBUG && console.info(val);
 }
 
-function warn(val) {
+function warn(...val) {
   DEBUG && console.warn(val);
 }
 
-function error(val) {
+function error(...val) {
   DEBUG && console.error(val);
 }
 
@@ -50,14 +62,16 @@ function click(_id) {
   id(_id).click();
 }
 
-const events = [
-  "dragstart", "drag", "dragend",
-  "pointerdown", "pointerup", "pointermove", "pointerenter",
-  "pointerleave", "pointerover", "pointerout", "pointercancel",
-  "click", "dblclick", "contextmenu",
-  "wheel"
-];
+function cursorZoomOut() {
+  id('editorMain').style.cursor = "zoom-out";
+}
 
-const keyEvents = [
-  "keydown", "keyup", "keypress"
-];
+function cursorZoomIn() {
+  id('editorMain').style.cursor = "zoom-in";
+}
+
+function cursorDefault() {
+  window.setTimeout(function() {
+    document.getElementById('editorMain').style.cursor = "default";
+  }, 500);
+}

@@ -1,4 +1,4 @@
-const DEBUG = false;
+const DEBUG = true;
 
 var c1 = id("c1");
 var c2 = id("c2");
@@ -24,7 +24,7 @@ event(c2, "mouseover", function() {
 });
 
 event(id("saveBtn"), "click", function() {
-var svgElement = id("main");
+var svgElement = id("editorMain");
 var serializer = new XMLSerializer();
 var svgString = serializer.serializeToString(svgElement);
 
@@ -41,8 +41,8 @@ URL.revokeObjectURL(url);
 });
 
 event(id("zoomInBtn"), "click", function () {
-var svgElement = id("main");
-var viewBox = svgElement.getAttribute("viewBox").split(" ").map(float);;
+var svgElement = id("editorMain");
+var viewBox = svgElement.getAttribute("viewBox").split(" ").map(float);
 var x = viewBox[0];
 var y = viewBox[1];
 var width = viewBox[2];
@@ -57,12 +57,15 @@ var newY = Math.round(y + (height - newHeight) / 2);
 value("width", newWidth);
 value("height", newHeight);
 
+cursorZoomIn();
+cursorDefault();
+
 svgElement.setAttribute("viewBox", `${newX} ${newY} ${newWidth} ${newHeight}`);
 });
 
 event(id("zoomOutBtn"), "click", function () {
-var svgElement = id("main");
-var viewBox = svgElement.getAttribute("viewBox").split(" ").map(float);;
+var svgElement = id("editorMain");
+var viewBox = svgElement.getAttribute("viewBox").split(" ").map(float);
 var x = viewBox[0];
 var y = viewBox[1];
 var width = viewBox[2];
@@ -77,17 +80,26 @@ var newY = Math.round(y - (newHeight - height) / 2);
 value("width", newWidth);
 value("height", newHeight);
 
+cursorZoomOut();
+cursorDefault();
+
 svgElement.setAttribute("viewBox", `${newX} ${newY} ${newWidth} ${newHeight}`);
 });
 
 event(id("rectBtn"), "click", function () {
-var svgElement = id("main");
+var svgElement = id("editorMain");
 
-svgElement.innerHTML += "<rect x='10' y='10' width='50' height='50' stroke='black' stroke-width='2' fill='yellow'/>";
+svgElement.innerHTML += "<rect x='10' y='10' width='50' height='50' stroke='black' stroke-width='2' />";
+});
+
+event(id("circleBtn"), "click", function () {
+var svgElement = id("editorMain");
+
+svgElement.innerHTML += "<circle cx='10' cy='10' r='25---' stroke='black' stroke-width='2' fill='yellow'/>";
 });
 
 function mainEvents(e) {
-  console.log("Event:", e)
+  log("Event:", e);
   switch (e.type) {
     case "pointerdown":
       log("Pointer down at " + e.clientX + ", " + e.clientY);
@@ -123,10 +135,61 @@ function mainEvents(e) {
   }
 }
 
+function mainKeyEvents(e) {
+  log("Key Event:", e);
+  switch (e.type) {
+    case "keydown":
+      log("Key down: " + e.key);
+      shortcutKeys(e.key);
+      break;
+    case "keyup":
+      log("Key up: " + e.key);
+      break;
+    case "keypress":
+      log("Key press: " + e.key);
+      break;
+    default:
+      log("Other key event: " + e.type);
+  }
+}
+
+function shortcutKeys(key) {
+  switch (key) {
+    case "+":
+    case "=":
+      log("Shortcut: Zoom In");
+      click("zoomInBtn");
+      break;
+    case "-":
+    case "_":
+      log("Shortcut: Zoom Out");
+      click("zoomOutBtn");
+      break;
+    case "r":
+    case "R":
+      log("Shortcut: Add Rectangle");
+      click("rectBtn");
+      break;
+    case "c":
+    case "C":
+      log("Shortcut: Add Circle");
+      click("circleBtn");
+      break;
+    case "s":
+    case "S":
+      log("Shortcut: Save SVG");
+      click("saveBtn");
+      break;
+    default:
+      log("No shortcut assigned for key: " + key);
+  }
+}
+
+/* Attach main event listeners */
 events.forEach(e => {
-  event(id('main'), e, mainEvents);
+  event(id('editorMain'), e, mainEvents);
 });
 
-// events.forEach(e => {
-//   event(id('main'), e, mainEvents);
-// });
+keyEvents.forEach(e => {
+  event(window, e, mainKeyEvents);
+});

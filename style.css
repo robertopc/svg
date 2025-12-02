@@ -4,9 +4,24 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Crect x='0' y='0' width='10' height='10' fill='black' fill-opacity='.25' /%3E%3Crect x='10' y='10' width='10' height='10' fill='black' fill-opacity='.25' /%3E%3C/svg%3E");
 }
 
-#main {
+#editorMain {
   position: absolute;
-  top: 10vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#editorViewbox {
+  position: absolute;
+  top: 10vw;
   left: 10vw;
-  border: 3px dashed black;
+  width: 80vw;
+  height: 80vh;
+  background: transparent;
+  border: 1vw solid red;
+  z-index: 999;
+}
+
+#editorGrid {
+
 }
