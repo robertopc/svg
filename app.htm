@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <svg id="main" width="80vw" height="80vh" xmlns="http://www.w3.org/2000/svg" viewBox="100 100 100 100">
+    <g id="grid">
+      <line x1="-1000" y1="0" x2="1000" y2="0" stroke="black" stroke-width="5"/>
+      <line x1="0" y1="-1000" x2="0" y2="1000" stroke="black" stroke-width="5"/>
+      <line x1="-1000" y1="100" x2="1000" y2="100" stroke="black" stroke-width="5"/>
+      <line x1="100" y1="-1000" x2="100" y2="1000" stroke="black" stroke-width="5"/>
+    </g>
+    <g id="general">
+      <circle id="c1" cx="0" cy="0" r="80" stroke="black" stroke-width="20" fill="red"/>
+      <circle id="c2" cx="100" cy="100" r="80" stroke="black" stroke-width="2" fill="lightblue"/>
+      <circle id="target" cx="300" cy="300" r="80" stroke="black" stroke-width="2" fill="green"/>
+      <text x="100" y="115" font-size="30" text-anchor="middle" fill="darkblue">aa</text>
+    </g>
+  </svg>
+  <button id="saveBtn">Save SVG</button>
+  <button id="zoomInBtn">Zoom In</button>
+  <button id="zoomOutBtn">Zoom Out</button>
+  <button id="rectBtn">Rect</button>
+  <button id="circleBtn">Circle</button>
+
+  <div id="svgSize">
+    <input type="text" id="width" placeholder="width" style="width: 33px;" /> x <input type="text" id="height" placeholder="height" style="width: 33px;" />
+  </div>
+  <script src="helpers.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
