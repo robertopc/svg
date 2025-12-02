@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>JS rotate SVG</title>
+<style>
+  svg { width: 220px; height: 220px; display:block; margin: 40px auto; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 200 200" id="svg">
+  <g id="rotor" transform="translate(100 100)">
+    <rect x="-60" y="-10" width="120" height="20" rx="6" fill="#6ee7b7" />
+    <circle cx="0" cy="0" r="10" fill="#047857" />
+  </g>
+</svg>
+
+<script>
+  const rotor = document.getElementById('rotor');
+  let angle = 0;
+  let last = null;
+
+  function animate(ts) {
+    if (!last) last = ts;
+    const dt = ts - last; // ms since last frame
+    last = ts;
+    // rotate 40 degrees per second
+    angle += (40 * dt) / 1000;
+    rotor.setAttribute('transform', `translate(100 100) rotate(${angle})`);
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+</script>
+</body>
+</html>

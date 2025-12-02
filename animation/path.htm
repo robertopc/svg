@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>SVG Path Draw</title>
+<style>
+  svg { width: 500px; height: 150px; display:block; margin: 30px auto; }
+  path {
+    fill: none;
+    stroke: #2b8aef;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    /* the trick: hide the stroke by offsetting it by its length */
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 3s ease forwards;
+  }
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 500 150" aria-label="Path draw animation">
+  <!-- a fun squiggle -->
+  <path d="M20 80 C120 10, 200 150, 300 80 S460 40, 480 80" />
+</svg>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>SVG Morph Example</title>
+<style>
+  svg { width: 300px; height: 300px; display:block; margin: 30px auto; }
+  path { fill: #ffd166; stroke: #f08000; stroke-width: 3; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 120 120" aria-label="Morph shape">
+  <path id="morph" d="M60 20 C75 20, 95 35, 80 60 C95 85, 75 100, 60 80 C45 100, 25 85, 40 60 C25 35, 45 20, 60 20 z">
+    <animate attributeName="d"
+      dur="3s"
+      repeatCount="indefinite"
+      values="
+        M60 20 C75 20, 95 35, 80 60 C95 85, 75 100, 60 80 C45 100, 25 85, 40 60 C25 35, 45 20, 60 20 z;
+        M60 10 C85 10, 100 35, 90 60 C100 85, 70 105, 60 80 C50 105, 20 85, 30 60 C20 35, 35 10, 60 10 z;
+        M60 20 C75 20, 95 35, 80 60 C95 85, 75 100, 60 80 C45 100, 25 85, 40 60 C25 35, 45 20, 60 20 z
+      " />
+  </path>
+</svg>
+</body>
+</html>
